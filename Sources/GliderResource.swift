@@ -1,6 +1,6 @@
 import UIKit
 
-public class GliderResource {
+public class GliderResource: NSObject {
     let type: GliderResourceType
 
     @objc convenience public init(url: URL) {
@@ -17,7 +17,7 @@ public class GliderResource {
 
     private var data: Data?
 
-    var isDataAvailable: Bool {
+    @objc var isDataAvailable: Bool {
         return data != nil
     }
 

@@ -1,7 +1,7 @@
 import UIKit
 
 public class GliderView: UIView {
-    public var resource: GliderResource? {
+    @objc public var resource: GliderResource? {
         didSet {
             resourceLayer?.removeFromSuperlayer()
             resourceLayer = nil
@@ -9,9 +9,9 @@ public class GliderView: UIView {
         }
     }
 
-    public var completion: (() -> ())?
-    public var repeatCount: Int = 1
-    public var loops: Bool {
+    @objc public var completion: (() -> ())?
+    @objc public var repeatCount: Int = 1
+    @objc public var loops: Bool {
         get {
             return repeatCount == Int.max
         }
@@ -20,7 +20,7 @@ public class GliderView: UIView {
         }
     }
 
-    public var autoreverses: Bool = false //TODO
+    @objc public var autoreverses: Bool = false //TODO
     fileprivate var isAnimating: Bool = false
     private var resourceLayer: CALayer?
 
