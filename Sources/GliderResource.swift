@@ -7,8 +7,12 @@ public class GliderResource: NSObject {
         self.init(type: .remote(url))
     }
 
-    @objc convenience public init(resourceName: String) {
-        self.init(type: .local(resourceName))
+    @objc convenience public init(resourceNameInBundle: String) {
+        self.init(type: .inBundle(resourceNameInBundle))
+    }
+    
+    @objc convenience public init(assetName: String) {
+        self.init(type: .inDataAsset(assetName))
     }
 
     public init(type: GliderResourceType) {
@@ -43,8 +47,15 @@ public class GliderResource: NSObject {
 
     private func loadData(completion: @escaping GliderLoadCompletion) {
         switch type {
-        case .local(let name):
+        case .inBundle(let name):
             loadLocalResource(named: name, completion: completion)
+        case .inDataAsset(let assetName):
+            guard let dataAsset = NSDataAsset(name: assetName) else {
+                completion(.error(GliderError.emptyOrInvalidData))
+                return
+            }
+            
+            handleData(dataAsset.data, completion: completion)
         case .remote(let url):
             loadRemoteResource(at: url, completion: completion)
         case .ready(let data):

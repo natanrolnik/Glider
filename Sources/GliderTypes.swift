@@ -9,7 +9,8 @@ public enum GliderError: Error {
 }
 
 public enum GliderResourceType {
-    case local(String)
+    case inBundle(String)
+    case inDataAsset(String)
     case remote(URL)
     case ready(Data)
 }

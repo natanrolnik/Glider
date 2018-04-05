@@ -58,7 +58,7 @@ public class GliderView: UIView {
 
     public override var intrinsicContentSize: CGSize {
         guard let rLayer = resourceLayer else {
-            return .zero
+            return CGSize(width: 50, height: 50)
         }
 
         return rLayer.bounds.size
@@ -135,7 +135,7 @@ public class GliderView: UIView {
         return CATransform3DConcat(scale, translation)
     }
 
-    public func startAnimating() {
+    @objc public func startAnimating() {
         guard let rLayer = resourceLayer else {
             startAnimatingWhenResourceLoads = true
             return
@@ -156,7 +156,7 @@ public class GliderView: UIView {
         rLayer.beginTime = CACurrentMediaTime()
     }
 
-    public func rewind(andPlay: Bool) {
+    @objc public func rewind(andPlay: Bool) {
         resourceLayer?.speed = 0
         resourceLayer?.timeOffset = 0
 
@@ -165,13 +165,13 @@ public class GliderView: UIView {
         }
     }
 
-    public func pause() {
+    @objc public func pause() {
         isAnimating = false
         resourceLayer?.speed = 0.0
         resourceLayer?.timeOffset = resourceLayer!.convertTime(CACurrentMediaTime(), from: nil)
     }
 
-    public func stopAnimating() {
+    @objc public func stopAnimating() {
         isAnimating = false
         repeatCurrentCount = 0
         startAnimatingWhenResourceLoads = false
