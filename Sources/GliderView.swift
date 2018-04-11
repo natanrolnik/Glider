@@ -88,8 +88,7 @@ public class GliderView: UIView {
             return
         }
 
-        rLayer.flipGeometry()
-        rLayer.isGeometryFlipped = true
+        rLayer.isGeometryFlipped = false
         rLayer.masksToBounds = true
         layer.addSublayer(rLayer)
 
@@ -146,7 +145,7 @@ public class GliderView: UIView {
         guard !isAnimating else {
             return
         }
-
+        
         if let last = rLayer.lastAnimationToFinish() {
             let animationCopy = last.animation.mutableCopy() as! CAAnimation
             last.layer.removeAnimation(forKey: last.animationKey)
@@ -198,11 +197,6 @@ extension GliderView: CAAnimationDelegate {
 }
 
 private extension CALayer {
-    func flipGeometry() {
-        isGeometryFlipped = true
-        sublayers?.forEach { $0.flipGeometry() }
-    }
-
     func lastAnimationToFinish() -> (animation: CAAnimation, layer: CALayer, animationKey: String)? {
         var lastAnimation: CAAnimation? = nil
         var lastFinishTime: CFTimeInterval = 0
