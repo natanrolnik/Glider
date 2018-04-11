@@ -73,6 +73,8 @@ public class GliderView: UIView {
             switch result {
             case .success(let layer):
                 self.resourceLayer = layer
+                layer.beginTime = CACurrentMediaTime()
+                layer.speed = 0
                 self.invalidateIntrinsicContentSize()
                 self.layoutResourceLayer()
             default:
@@ -167,7 +169,7 @@ public class GliderView: UIView {
 
     @objc public func pause() {
         isAnimating = false
-        resourceLayer?.speed = 0.0
+        resourceLayer?.speed = 0
         resourceLayer?.timeOffset = resourceLayer!.convertTime(CACurrentMediaTime(), from: nil)
     }
 
