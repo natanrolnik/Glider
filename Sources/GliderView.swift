@@ -183,15 +183,17 @@ public class GliderView: UIView {
 extension GliderView: CAAnimationDelegate {
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         isAnimating = false
+
+        guard flag else {
+            return
+        }
+
         repeatCurrentCount += 1
 
-        if flag {
-            if repeatCount == repeatCurrentCount {
-                completion?()
-                completion = nil
-            } else if repeatCount > repeatCurrentCount {
-                rewind(andPlay: true)
-            }
+        if repeatCount == repeatCurrentCount {
+            completion?()
+        } else if repeatCount > repeatCurrentCount {
+            rewind(andPlay: true)
         }
     }
 }
